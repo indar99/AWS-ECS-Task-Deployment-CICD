@@ -1,5 +1,9 @@
 # ECS Fargate task deployment CICD
 
+Pre-requisties : 
+
+ECR Repo should be created on respective region .
+
 We need to update in cicd below three things
 
 ECS Task defination name
