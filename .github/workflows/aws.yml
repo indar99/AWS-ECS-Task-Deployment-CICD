@@ -71,15 +71,15 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
-    - name: Download task def 
-      run: |
-        aws ecs describe-task-definition --task-definition ngx-task --query taskDefinition > task-definition.json
+    #- name: Download task def 
+    #  run: |
+     #   aws ecs describe-task-definition --task-definition ngx-task --query taskDefinition > task-definition.json
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: task-definition.json
+        task-definition: ngx-task.json
         container-name: nginx
         image: ${{ steps.build-image.outputs.image }}
 
