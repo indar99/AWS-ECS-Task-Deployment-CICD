@@ -73,7 +73,7 @@ jobs:
         
     - name: Download task def 
       run: |
-       aws ecs describe-task-definition --task-definition ngx1 --query taskDefinition > ngx-task.json
+       aws ecs describe-task-definition --task-definition ngx-task --query taskDefinition > ngx-task.json
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
@@ -87,6 +87,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ngx-serv
-        cluster: deno
+        service: nginx-service
+        cluster: ECS-TF-DEMO
         wait-for-service-stability: true
