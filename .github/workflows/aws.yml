@@ -73,7 +73,7 @@ jobs:
         
     - name: Download task def 
       run: |
-       aws ecs describe-task-definition --task-definition ngx-test --query taskDefinition > ngx-test.json
+       aws ecs describe-task-definition --task-definition nginx-test --query taskDefinition > ngx-test.json
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
