@@ -28,7 +28,7 @@ name: 'Terraform'
 on:
   push:
     branches:
-    - main
+    - master
   pull_request:
 
 jobs:
@@ -73,13 +73,13 @@ jobs:
         
     - name: Download task def 
       run: |
-       aws ecs describe-task-definition --task-definition ngx-task --query taskDefinition > ngx-task.json
+       aws ecs describe-task-definition --task-definition ngx-test --query taskDefinition > ngx-test.json
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ngx-task.json
+        task-definition: ngx-test.json
         container-name: nginx
         image: ${{ steps.build-image.outputs.image }}
 
@@ -87,6 +87,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: nginx-service
-        cluster: ECS-TF-DEMO
+        service: ngx-serv
+        cluster: myecs
         wait-for-service-stability: true
